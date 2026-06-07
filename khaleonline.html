@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KhaleOnline – IT Home Services Bhopal</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080c14;--bg2:#0d1421;--bg3:#111827;
+  --surface:rgba(255,255,255,0.04);--surface2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);--border2:rgba(0,212,255,0.25);
+  --cyan:#00d4ff;--cyan2:#0090ff;--orange:#ff6b2b;--green:#00e676;--purple:#a855f7;
+  --text:#f0f4ff;--text2:#8899bb;--text3:#4a5a6a;
+  --r8:8px;--r12:12px;--r16:16px;--r20:20px;--r24:24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--cyan2);border-radius:2px}
+a{text-decoration:none;color:inherit}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:9999}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;background:rgba(8,12,20,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-glow{position:absolute;bottom:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.25}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.45rem;letter-spacing:-0.04em;cursor:pointer}
+.nav-logo .k{color:var(--cyan)}
+.nav-logo .btag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--text3);border:1px solid var(--border);border-radius:4px;padding:2px 7px;letter-spacing:0.08em;margin-top:2px}
+.nav-menu{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-menu a{padding:8px 15px;border-radius:var(--r8);font-size:0.88rem;font-weight:500;color:var(--text2);transition:color 0.2s,background 0.2s;cursor:pointer;position:relative}
+.nav-menu a:hover{color:var(--text);background:var(--surface)}
+.nav-menu a.active{color:var(--text)}
+.nav-menu a.active::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--cyan)}
+.nav-cta{background:var(--cyan)!important;color:var(--bg)!important;font-weight:700!important;padding:9px 22px!important;border-radius:var(--r8)!important;box-shadow:0 0 20px rgba(0,212,255,0.25)}
+.nav-cta:hover{box-shadow:0 0 32px rgba(0,212,255,0.5)!important;transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:var(--text2);border-radius:2px;transition:all 0.3s}
+.mob-nav{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(8,12,20,0.97);backdrop-filter:blur(20px);padding:20px;z-index:499;border-bottom:1px solid var(--border);flex-direction:column;gap:6px}
+.mob-nav.open{display:flex}
+.mob-nav a{padding:13px 16px;border-radius:var(--r8);font-size:0.95rem;font-weight:500;color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:all 0.2s}
+.mob-nav a:hover,.mob-nav a.active{color:var(--text);border-color:var(--border2)}
+
+.page{display:none;animation:fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 56px}
+.sec{padding:96px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--cyan);padding:5px 14px;border:1px solid rgba(0,212,255,0.3);border-radius:100px;margin-bottom:18px;background:rgba(0,212,255,0.05)}
+.chip .dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.display{font-size:clamp(2.8rem,6vw,5.2rem);font-weight:900;line-height:1.0;letter-spacing:-0.04em}
+.h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em}
+.grad{background:linear-gradient(120deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.body{font-size:1rem;color:var(--text2);line-height:1.75;font-weight:300}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r8);font-family:'Outfit',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;border:none;transition:all 0.25s}
+.bp{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);box-shadow:0 4px 24px rgba(0,212,255,0.2)}
+.bp:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(0,212,255,0.35)}
+.bo{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.bo:hover{background:rgba(0,212,255,0.07);border-color:var(--cyan)}
+.barr{background:transparent;color:var(--text2);padding:13px 0;font-family:'Outfit',sans-serif;font-size:0.92rem;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s}
+.barr:hover{color:var(--text);gap:14px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.gbg{background-image:linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);background-size:64px 64px}
+.glass{background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);transition:all 0.3s}
+.glass:hover{background:var(--surface2);border-color:var(--border2)}
+
+/* HOME */
+#ph{padding-top:70px}
+.hero{min-height:calc(100vh - 70px);display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(0,212,255,0.08),transparent 70%)}
+.hgl{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 100% 80% at 50% 50%,black 20%,transparent 80%);pointer-events:none}
+.orbs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:drift 12s ease-in-out infinite alternate}
+.o1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,0.1),transparent 70%);top:-100px;right:-100px}
+.o2{width:400px;height:400px;background:radial-gradient(circle,rgba(0,144,255,0.08),transparent 70%);bottom:-50px;left:-100px;animation-delay:-5s}
+.o3{width:300px;height:300px;background:radial-gradient(circle,rgba(168,85,247,0.06),transparent 70%);top:40%;left:50%;animation-delay:-2s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.05)}}
+.hi{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%;padding:80px 56px;max-width:1180px;margin:0 auto}
+.hstatus{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;color:var(--green);padding:6px 14px;border:1px solid rgba(0,230,118,0.25);border-radius:100px;background:rgba(0,230,118,0.05);margin-bottom:24px;letter-spacing:0.08em}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pr 2s infinite}
+@keyframes pr{0%{box-shadow:0 0 0 0 rgba(0,230,118,0.4)}70%{box-shadow:0 0 0 8px rgba(0,230,118,0)}100%{box-shadow:0 0 0 0 rgba(0,230,118,0)}}
+.hdesc{font-size:1.05rem;color:var(--text2);line-height:1.75;font-weight:300;max-width:480px;margin-bottom:40px}
+.hact{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:40px}
+.hchips{display:flex;gap:10px;flex-wrap:wrap}
+.hchip{font-size:0.78rem;font-weight:500;padding:6px 14px;border-radius:100px;background:var(--surface);border:1px solid var(--border);color:var(--text2)}
+.hpanel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);overflow:hidden;position:relative}
+.hpanel::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.04),transparent 60%);pointer-events:none}
+.ph{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.2)}
+.pdots{display:flex;gap:6px}
+.pdots span{width:10px;height:10px;border-radius:50%}
+.pdots .d1{background:#ff5f57}.pdots .d2{background:#febc2e}.pdots .d3{background:#28c840}
+.ptitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text3);margin-left:4px}
+.pb{padding:24px}
+.srows{display:flex;flex-direction:column;gap:10px}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:var(--r12);transition:all 0.25s}
+.srow:hover{border-color:var(--border2);background:rgba(0,212,255,0.04)}
+.sl{display:flex;align-items:center;gap:12px}
+.si{font-size:1.4rem;width:38px;text-align:center}
+.sn{font-size:0.88rem;font-weight:600}
+.ss{font-size:0.72rem;color:var(--text3);margin-top:1px;font-family:'JetBrains Mono',monospace}
+.sp{font-size:0.95rem;font-weight:700;color:var(--cyan)}
+.pf{padding:16px 20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.15)}
+.avt{font-size:0.78rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.avt span{color:var(--green)}
+.bm{font-size:0.8rem;font-weight:700;background:var(--cyan);color:var(--bg);padding:7px 16px;border-radius:var(--r8);border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s}
+.bm:hover{box-shadow:0 4px 16px rgba(0,212,255,0.4)}
+.sbar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 0}
+.si2{max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stitem{text-align:center;padding:0 24px;border-right:1px solid var(--border)}
+.stitem:last-child{border-right:none}
+.stnum{font-size:2.8rem;font-weight:900;letter-spacing:-0.05em;background:linear-gradient(135deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stlbl{font-size:0.83rem;color:var(--text3);margin-top:4px}
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.wfs{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.wf{display:flex;gap:16px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r16);transition:all 0.3s}
+.wf:hover{border-color:var(--border2);background:var(--surface2)}
+.fi{width:44px;height:44px;border-radius:var(--r12);background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,144,255,0.1));border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ft{font-size:0.95rem;font-weight:700;margin-bottom:4px}
+.fd{font-size:0.83rem;color:var(--text2);line-height:1.6}
+.tc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r20);padding:32px;position:relative;overflow:hidden}
+.tc::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,212,255,0.1),transparent 70%);pointer-events:none}
+.cl{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.ci{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r12);font-size:0.88rem;font-weight:500}
+.ck{color:var(--green);font-size:1rem;flex-shrink:0}
+.rb{padding:16px;background:linear-gradient(135deg,rgba(0,212,255,0.06),rgba(0,144,255,0.04));border:1px solid var(--border2);border-radius:var(--r12);display:flex;align-items:center;justify-content:space-between}
+.rs{color:#fbbf24;font-size:1.1rem;letter-spacing:2px}
+.rc{font-size:0.8rem;color:var(--text3);margin-top:2px}
+.rn{font-size:2rem;font-weight:900;color:var(--cyan)}
+.ctab{padding:80px 0;background:linear-gradient(135deg,rgba(0,212,255,0.06),rgba(0,144,255,0.04) 50%,rgba(168,85,247,0.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.ctab::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,212,255,0.08),transparent 70%);pointer-events:none}
+.ctai{text-align:center;position:relative;z-index:1}
+.ctaact{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+.ts{padding:80px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.tc2{padding:28px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r20);transition:all 0.3s}
+.tc2:hover{border-color:var(--border2);transform:translateY(-3px)}
+.tst{color:#fbbf24;font-size:0.85rem;letter-spacing:2px;margin-bottom:14px}
+.tt{font-size:0.88rem;color:var(--text2);line-height:1.7;font-style:italic;margin-bottom:20px}
+.ta{display:flex;align-items:center;gap:12px}
+.tav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:var(--bg)}
+.ac{background:linear-gradient(135deg,var(--cyan),var(--cyan2))}
+.ao{background:linear-gradient(135deg,var(--orange),#ff9f43)}
+.ap{background:linear-gradient(135deg,var(--purple),#7c3aed)}
+.ag{background:linear-gradient(135deg,var(--green),#00bcd4)}
+.tn{font-size:0.88rem;font-weight:600}
+.tlo{font-size:0.75rem;color:var(--text3);margin-top:2px}
+
+/* SERVICES */
+#ps{padding-top:70px}
+.phero{padding:80px 0 60px;text-align:center;border-bottom:1px solid var(--border)}
+.cg{background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,0.07),transparent 70%)}
+.og{background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,107,43,0.06),transparent 70%)}
+.gg{background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,230,118,0.05),transparent 70%)}
+.phero p{max-width:560px;margin:16px auto 0}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.sc{padding:32px 28px;border-radius:var(--r20);background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden;transition:all 0.3s;cursor:default}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity 0.3s}
+.sc:hover{background:var(--surface2);border-color:rgba(0,212,255,0.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,255,0.06)}
+.sc:hover::before{opacity:1}
+.sc.feat{background:linear-gradient(135deg,rgba(0,212,255,0.08),rgba(0,144,255,0.04));border-color:rgba(0,212,255,0.3)}
+.sc.feat::before{opacity:1}
+.sch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
+.scico{width:52px;height:52px;border-radius:var(--r12);background:linear-gradient(135deg,rgba(0,212,255,0.12),rgba(0,144,255,0.08));border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.scbadge{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);padding:3px 10px;border:1px solid rgba(0,212,255,0.3);border-radius:100px;background:rgba(0,212,255,0.06)}
+.sc h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;letter-spacing:-0.02em}
+.sc p{font-size:0.86rem;color:var(--text2);line-height:1.65;margin-bottom:20px}
+.stags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.stag{font-size:0.72rem;font-weight:500;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text3)}
+.spl{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border)}
+.sfr{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase}
+.sam{font-size:1.1rem;font-weight:800;color:var(--cyan)}
+.procsec{padding:80px 0;background:var(--surface);border-top:1px solid var(--border)}
+.psteps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;position:relative}
+.psteps::before{content:'';position:absolute;top:28px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,var(--border),var(--border2),var(--border));z-index:0}
+.pst{text-align:center;position:relative;z-index:1}
+.pn{width:56px;height:56px;border-radius:50%;margin:0 auto 20px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--cyan);transition:all 0.3s}
+.pst:hover .pn{background:var(--cyan);color:var(--bg);border-color:var(--cyan);box-shadow:0 0 24px rgba(0,212,255,0.4)}
+.pst h4{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.pst p{font-size:0.82rem;color:var(--text3);line-height:1.6;padding:0 8px}
+
+/* PRICING */
+#pp{padding-top:70px}
+.rtable{margin-top:48px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);overflow:hidden}
+.rth{display:grid;grid-template-columns:2fr 1fr 1fr;padding:14px 24px;background:rgba(0,0,0,0.3);border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3)}
+.rrow{display:grid;grid-template-columns:2fr 1fr 1fr;padding:16px 24px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.2s}
+.rrow:last-child{border-bottom:none}
+.rrow:hover{background:var(--surface2)}
+.rsvc{display:flex;align-items:center;gap:12px;font-size:0.9rem;font-weight:500}
+.rsico{font-size:1.2rem}
+.rfr{font-size:0.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3)}
+.rprice{font-weight:800;color:var(--cyan);font-size:0.95rem}
+.rtm{font-size:0.8rem;color:var(--text3)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.pcard{border-radius:var(--r24);padding:36px 32px;background:var(--surface);border:1px solid var(--border);position:relative;transition:all 0.3s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
+.pcard.pop{background:linear-gradient(145deg,rgba(0,212,255,0.07),rgba(0,144,255,0.04));border-color:var(--border2)}
+.poptag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);padding:4px 16px;border-radius:100px;white-space:nowrap}
+.pname{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.ppr{font-size:3rem;font-weight:900;letter-spacing:-0.05em;margin-bottom:4px;line-height:1}
+.ppr sup{font-size:1.4rem;vertical-align:top;margin-top:8px;font-weight:700}
+.ppr sub{font-size:1rem;font-weight:400;color:var(--text3)}
+.pcard.pop .ppr{color:var(--cyan)}
+.ptag{font-size:0.85rem;color:var(--text3);margin-bottom:24px}
+.pdiv{height:1px;background:var(--border);margin-bottom:24px}
+.pfeats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.pfeats li{font-size:0.87rem;display:flex;align-items:flex-start;gap:10px;color:var(--text2)}
+.pfeats li::before{content:'✓';color:var(--cyan);font-weight:700;font-size:0.8rem;flex-shrink:0;margin-top:2px}
+.pbtn{width:100%;padding:13px;border-radius:var(--r8);font-size:0.9rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;border:1px solid var(--border2);background:transparent;color:var(--text)}
+.pbtn:hover{background:rgba(0,212,255,0.08);border-color:var(--cyan)}
+.pcard.pop .pbtn{background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;color:var(--bg)}
+.pcard.pop .pbtn:hover{box-shadow:0 6px 24px rgba(0,212,255,0.4);transform:translateY(-1px)}
+.faqg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.faqi{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r16);transition:all 0.3s}
+.faqi:hover{border-color:var(--border2)}
+.faqq{font-size:0.92rem;font-weight:600;margin-bottom:10px}
+.faqa{font-size:0.84rem;color:var(--text3);line-height:1.65}
+
+/* ABOUT */
+#pa{padding-top:70px}
+.alayout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 0;border-bottom:1px solid var(--border)}
+.avis{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);padding:36px;position:relative;overflow:hidden}
+.avis::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,212,255,0.12),transparent 70%);pointer-events:none}
+.asg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.asb{padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r16);text-align:center}
+.asb .n{font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:var(--cyan)}
+.asb .l{font-size:0.78rem;color:var(--text3);margin-top:4px}
+.aq{padding:20px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:var(--r12);font-size:0.88rem;color:var(--text2);line-height:1.65;font-style:italic}
+.aq cite{display:block;margin-top:10px;font-style:normal;font-size:0.78rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.mssec{padding:80px 0;background:var(--surface);border-bottom:1px solid var(--border)}
+.mgg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.mgc{padding:32px 28px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r20);text-align:center;transition:all 0.3s}
+.mgc:hover{border-color:var(--border2);transform:translateY(-4px)}
+.mgico{font-size:2.5rem;margin-bottom:16px}
+.mgc h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.mgc p{font-size:0.85rem;color:var(--text3);line-height:1.65}
+.tmg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+.tmc{padding:28px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);text-align:center;transition:all 0.3s}
+.tmc:hover{border-color:var(--border2);transform:translateY(-4px)}
+.tmav{width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;color:var(--bg)}
+.tmn{font-size:0.95rem;font-weight:700;margin-bottom:4px}
+.tmr{font-size:0.78rem;color:var(--text3);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em}
+.tme{font-size:0.78rem;color:var(--cyan);margin-top:8px}
+
+/* CONTACT */
+#pc{padding-top:70px}
+.cbody{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;padding:64px 0;align-items:start}
+.cinfo{display:flex;flex-direction:column;gap:16px}
+.icard{padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r16);display:flex;gap:16px;align-items:flex-start;transition:all 0.3s}
+.icard:hover{border-color:var(--border2)}
+.iico{width:44px;height:44px;border-radius:var(--r12);flex-shrink:0;background:linear-gradient(135deg,rgba(0,212,255,0.12),rgba(0,144,255,0.08));border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.ilbl{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:4px}
+.ival{font-size:0.92rem;font-weight:600;color:var(--text);line-height:1.5}
+.isub{font-size:0.78rem;color:var(--text3);margin-top:2px}
+.hcard{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r16)}
+.hcard h4{font-size:0.9rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hlist{display:flex;flex-direction:column;gap:10px}
+.hrow{display:flex;justify-content:space-between;font-size:0.83rem;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.hrow:last-child{border-bottom:none;padding-bottom:0}
+.hday{color:var(--text2)}
+.htime{color:var(--cyan);font-family:'JetBrains Mono',monospace;font-weight:500}
+.cfw{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);padding:40px}
+.cfw h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.fsub{font-size:0.85rem;color:var(--text3);margin-bottom:28px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.field input,.field textarea,.field select{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r8);font-family:'Outfit',sans-serif;font-size:0.9rem;color:var(--text);transition:border-color 0.2s,box-shadow 0.2s;outline:none}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,0.08)}
+.field textarea{height:110px;resize:vertical}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a5a6a'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.field select option{background:var(--bg2)}
+.sbtn{width:100%;padding:14px;border-radius:var(--r8);background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;color:var(--bg);font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.sbtn:hover{box-shadow:0 6px 28px rgba(0,212,255,0.35);transform:translateY(-1px)}
+.mapsec{padding:0 0 80px}
+.mapcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);overflow:hidden}
+.maphead{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.maphead h4{font-size:1rem;font-weight:700}
+.mapaddr{font-size:0.83rem;color:var(--text3)}
+.mapembed{height:320px}
+.mapembed iframe{width:100%;height:100%;border:none;filter:invert(0.88) hue-rotate(180deg) saturate(0.5);opacity:0.8}
+
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:64px 0 32px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+.fbl .logo{font-size:1.35rem;font-weight:900;letter-spacing:-0.03em;cursor:pointer}
+.fbl .logo .k{color:var(--cyan)}
+.fbl p{font-size:0.84rem;color:var(--text3);line-height:1.7;margin-top:12px;max-width:260px}
+.fci{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.fcr{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--text3)}
+.fcr .ico{color:var(--cyan);flex-shrink:0;margin-top:1px}
+.fct{font-family:'JetBrains Mono',monospace;font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:18px}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:10px}
+.flinks a{font-size:0.86rem;color:var(--text2);cursor:pointer;transition:color 0.2s}
+.flinks a:hover{color:var(--cyan)}
+.fb{display:flex;justify-content:space-between;align-items:center;padding-top:28px;font-size:0.78rem;color:var(--text3)}
+.fbadges{display:flex;gap:10px}
+.fbdg{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:3px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text3);letter-spacing:0.06em}
+
+@media(max-width:1024px){
+  .hi{grid-template-columns:1fr;padding:60px 20px}
+  .hpanel{display:none}
+  .alayout{grid-template-columns:1fr}
+  .avis{display:none}
+}
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-menu{display:none}
+  .ham{display:flex}
+  .wrap{padding:0 20px}
+  .si2{padding:0 20px;grid-template-columns:1fr 1fr}
+  .stitem{border-right:none;border-bottom:1px solid var(--border);padding:20px 0}
+  .stitem:last-child{border-bottom:none}
+  .sgrid,.tg,.pgrid,.mgg{grid-template-columns:1fr}
+  .psteps{grid-template-columns:1fr 1fr}
+  .psteps::before{display:none}
+  .wg{grid-template-columns:1fr}
+  .tmg{grid-template-columns:1fr 1fr}
+  .cbody{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .faqg{grid-template-columns:1fr}
+  .fg{grid-template-columns:1fr 1fr}
+  .fb{flex-direction:column;gap:10px;text-align:center}
+  .rth,.rrow{grid-template-columns:2fr 1fr}
+  .rtm{display:none}
+  .asg{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .fg{grid-template-columns:1fr}
+  .tmg{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="gp('home')"><span><span class="k">Khale</span>Online</span><span class="btag">IT SERVICES</span></div>
+  <ul class="nav-menu">
+    <li><a class="active" onclick="gp('home')">Home</a></li>
+    <li><a onclick="gp('services')">Services</a></li>
+    <li><a onclick="gp('pricing')">Pricing</a></li>
+    <li><a onclick="gp('about')">About</a></li>
+    <li><a onclick="gp('contact')" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <div class="ham" onclick="tm()"><span></span><span></span><span></span></div>
+  <div class="nav-glow"></div>
+</nav>
+<div class="mob-nav" id="mn">
+  <a onclick="gp('home');tm()">🏠 Home</a>
+  <a onclick="gp('services');tm()">🔧 Services</a>
+  <a onclick="gp('pricing');tm()">💰 Pricing</a>
+  <a onclick="gp('about');tm()">🏢 About</a>
+  <a onclick="gp('contact');tm()" style="color:var(--cyan);border-color:var(--border2)">📞 Contact Us</a>
+</div>
+
+<!-- HOME -->
+<div id="ph" class="page active">
+  <section class="hero gbg">
+    <div class="hgl"></div>
+    <div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+    <div class="hi">
+      <div>
+        <div class="hstatus"><span class="pulse"></span>Available Today &middot; Bhopal</div>
+        <h1 class="display" style="margin-bottom:24px">Your Home<br><em class="grad" style="font-style:normal">Tech Fixed.</em><br>Today.</h1>
+        <p class="hdesc">KhaleOnline brings certified IT technicians to your doorstep in Bhopal &mdash; from printer repair to full network setup, we solve every home tech problem, fast.</p>
+        <div class="hact">
+          <button class="btn bp" onclick="gp('contact')">&#128222; Book a Technician</button>
+          <button class="barr" onclick="gp('services')">Explore Services <span>&#8594;</span></button>
+        </div>
+        <div class="hchips">
+          <span class="hchip">&#128424;&#65039; Printer Repair</span>
+          <span class="hchip">&#128187; PC / Laptop</span>
+          <span class="hchip">&#128246; Wi-Fi Setup</span>
+          <span class="hchip">&#128274; Cybersecurity</span>
+          <span class="hchip">&#9729;&#65039; Data Recovery</span>
+        </div>
+      </div>
+      <div class="hpanel">
+        <div class="ph"><div class="pdots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><span class="ptitle">// service-dashboard.live</span></div>
+        <div class="pb">
+          <div class="srows">
+            <div class="srow"><div class="sl"><div class="si">&#128424;&#65039;</div><div><div class="sn">Printer Repair</div><div class="ss">All brands &middot; doorstep</div></div></div><div class="sp">&#8377;249+</div></div>
+            <div class="srow"><div class="sl"><div class="si">&#128187;</div><div><div class="sn">Computer Repair</div><div class="ss">PC &amp; Laptop &middot; on-site</div></div></div><div class="sp">&#8377;500+</div></div>
+            <div class="srow"><div class="sl"><div class="si">&#128246;</div><div><div class="sn">Wi-Fi / Network</div><div class="ss">Mesh &amp; router setup</div></div></div><div class="sp">&#8377;399+</div></div>
+            <div class="srow"><div class="sl"><div class="si">&#129440;</div><div><div class="sn">Virus Removal</div><div class="ss">Full system clean</div></div></div><div class="sp">&#8377;500+</div></div>
+            <div class="srow"><div class="sl"><div class="si">&#9729;&#65039;</div><div><div class="sn">Data Recovery</div><div class="ss">HDD &amp; cloud backup</div></div></div><div class="sp">&#8377;1,500+</div></div>
+          </div>
+        </div>
+        <div class="pf"><div class="avt">Next slot: <span>Today 3:00 PM</span></div><button class="bm" onclick="gp('contact')">Book Now &#8594;</button></div>
+      </div>
+    </div>
+  </section>
+  <div class="sbar"><div class="si2">
+    <div class="stitem"><div class="stnum">12K+</div><div class="stlbl">Jobs Completed</div></div>
+    <div class="stitem"><div class="stnum">98%</div><div class="stlbl">Satisfaction Rate</div></div>
+    <div class="stitem"><div class="stnum">2hr</div><div class="stlbl">Avg Response Time</div></div>
+    <div class="stitem"><div class="stnum">4.9&#9733;</div><div class="stlbl">Google Rating</div></div>
+  </div></div>
+  <section class="sec"><div class="wrap"><div class="wg">
+    <div>
+      <div class="chip"><span class="dot"></span>Why KhaleOnline</div>
+      <h2 class="h2">Bhopal's Most Trusted<br>Home IT Partner</h2>
+      <p class="body" style="margin-top:16px">We don't just fix devices &mdash; we bring peace of mind. Certified technicians, honest pricing, and a guarantee on every job.</p>
+      <div class="wfs">
+        <div class="wf"><div class="fi">&#9889;</div><div><div class="ft">Same-Day Service</div><div class="fd">Book before 2 PM and get a technician at your home the same day.</div></div></div>
+        <div class="wf"><div class="fi">&#128737;&#65039;</div><div><div class="ft">No Fix, No Fee</div><div class="fd">We only charge when your problem is fully resolved. Zero risk for you.</div></div></div>
+        <div class="wf"><div class="fi">&#128203;</div><div><div class="ft">Transparent Pricing</div><div class="fd">Upfront quotes before we start. No hidden charges, ever.</div></div></div>
+        <div class="wf"><div class="fi">&#127885;</div><div><div class="ft">Certified Technicians</div><div class="fd">Background-verified engineers with proven expertise across all brands.</div></div></div>
+      </div>
+    </div>
+    <div><div class="tc">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:20px">Certifications &amp; Trust</div>
+      <div class="cl">
+        <div class="ci"><span class="ck">&#10003;</span>HP &amp; Canon Certified Service Partner</div>
+        <div class="ci"><span class="ck">&#10003;</span>Microsoft Certified Technicians</div>
+        <div class="ci"><span class="ck">&#10003;</span>Background-Verified Engineers</div>
+        <div class="ci"><span class="ck">&#10003;</span>30-Day Service Warranty</div>
+        <div class="ci"><span class="ck">&#10003;</span>GST Registered &middot; Bhopal</div>
+      </div>
+      <div class="rb"><div><div class="rs">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="rc">2,400+ reviews</div></div><div class="rn">4.9</div></div>
+    </div></div>
+  </div></div></section>
+  <div class="divider"></div>
+  <section class="ts"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Customer Reviews</div>
+    <h2 class="h2">What Bhopal Homes Say</h2>
+    <div class="tg">
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"My HP printer stopped working before a crucial presentation. KhaleOnline sent a technician within 90 minutes and fixed it completely. Incredible!"</p><div class="ta"><div class="tav ac">RK</div><div><div class="tn">Rajesh Kumar</div><div class="tlo">Saket Nagar, Bhopal</div></div></div></div>
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"Set up mesh Wi-Fi across my 3-floor house. Signal is perfect everywhere now. Technician was professional, clean, and done in under 2 hours."</p><div class="ta"><div class="tav ao">PM</div><div><div class="tn">Priya Mishra</div><div class="tlo">Arera Colony, Bhopal</div></div></div></div>
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"Laptop had a nasty virus &mdash; thought I lost 5 years of work. KhaleOnline recovered everything and set up proper protection. Worth every rupee!"</p><div class="ta"><div class="tav ap">AS</div><div><div class="tn">Ankit Sharma</div><div class="tlo">MP Nagar, Bhopal</div></div></div></div>
+    </div>
+  </div></section>
+  <section class="ctab"><div class="wrap ctai">
+    <div class="chip" style="margin:0 auto 20px"><span class="dot"></span>Ready to get started?</div>
+    <h2 class="h2" style="margin-bottom:16px">Your Tech Problems End Today</h2>
+    <p class="body" style="margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto">Same-day slots available in Bhopal. Book a certified technician &mdash; no fix, no fee.</p>
+    <div class="ctaact">
+      <button class="btn bp" onclick="gp('contact')">&#128222; Book Now &mdash; +91 83590 19009</button>
+      <button class="btn bo" onclick="gp('pricing')">View Pricing &#8594;</button>
+    </div>
+  </div></section>
+</div>
+
+<!-- SERVICES -->
+<div id="ps" class="page">
+  <section class="phero cg"><div class="wrap">
+    <div class="chip"><span class="dot"></span>What We Do</div>
+    <h1 class="display">Home IT Services,<br><span class="grad">Done Right</span></h1>
+    <p class="body">Every service performed at your home in Bhopal by a certified technician &mdash; no waiting, no carrying devices to a shop.</p>
+  </div></section>
+  <section class="sec"><div class="wrap"><div class="sgrid">
+    <div class="sc feat"><div class="sch"><div class="scico">&#128424;&#65039;</div><span class="scbadge">Popular</span></div><h3>Printer Repair &amp; Setup</h3><p>Paper jams, cartridge errors, offline issues, driver conflicts, wireless connectivity &mdash; we fix all printer problems for every brand.</p><div class="stags"><span class="stag">HP &middot; Canon &middot; Epson</span><span class="stag">Wireless Setup</span><span class="stag">Driver Install</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;249</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#128187;</div></div><h3>Computer &amp; Laptop Repair</h3><p>Slow performance, blue screens, hardware failures, overheating &mdash; diagnosed and repaired on-site with no wait.</p><div class="stags"><span class="stag">PC &amp; Mac</span><span class="stag">OS Reinstall</span><span class="stag">RAM Upgrade</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;500</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#128246;</div></div><h3>Home Network &amp; Wi-Fi</h3><p>Dead zones, slow speeds, router config, mesh network installation &mdash; fast, stable connection in every corner.</p><div class="stags"><span class="stag">Mesh Wi-Fi</span><span class="stag">Router Config</span><span class="stag">LAN Setup</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;399</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#129440;</div></div><h3>Virus &amp; Malware Removal</h3><p>Complete virus removal, ransomware cleanup, spyware elimination, and antivirus installation. Clean and protected.</p><div class="stags"><span class="stag">Full System Scan</span><span class="stag">Antivirus Setup</span><span class="stag">Firewall</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;500</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#9729;&#65039;</div></div><h3>Data Backup &amp; Recovery</h3><p>Lost files, failed drives &mdash; we recover your data and set up automated cloud or local backup systems.</p><div class="stags"><span class="stag">HDD Recovery</span><span class="stag">Cloud Backup</span><span class="stag">File Restore</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;1,500</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#128250;</div></div><h3>Smart Home &amp; TV Setup</h3><p>Smart TV mounting, streaming boxes, Alexa / Google Home integration &mdash; full smart home ecosystem setup.</p><div class="stags"><span class="stag">TV Mounting</span><span class="stag">Smart Devices</span><span class="stag">Streaming</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;799</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#128421;&#65039;</div></div><h3>New Device Setup</h3><p>New laptop, PC, or printer? OS activation, software install, account migration, and secure configuration.</p><div class="stags"><span class="stag">Data Transfer</span><span class="stag">Software Install</span><span class="stag">Account Setup</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;599</span></div></div>
+    <div class="sc"><div class="sch"><div class="scico">&#128274;</div></div><h3>Cybersecurity Audit</h3><p>Full home network security audit &mdash; weak passwords, open ports, outdated firmware. We harden your setup.</p><div class="stags"><span class="stag">Network Audit</span><span class="stag">Password Manager</span><span class="stag">VPN Setup</span></div><div class="spl"><span class="sfr">Starting From</span><span class="sam">&#8377;999</span></div></div>
+    <div class="sc" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(0,144,255,0.03));border-style:dashed"><div style="font-size:2.5rem;margin-bottom:16px">&#128295;</div><h3>Don't See Your Issue?</h3><p style="margin-bottom:24px">Describe your problem and we'll match you with the right specialist.</p><button class="btn bp" onclick="gp('contact')">Get Custom Quote</button></div>
+  </div></div></section>
+  <section class="procsec"><div class="wrap">
+    <div class="chip"><span class="dot"></span>How It Works</div>
+    <h2 class="h2">Booked. Arrived. Fixed.</h2>
+    <div class="psteps">
+      <div class="pst"><div class="pn">01</div><h4>Choose Service</h4><p>Pick from our list or describe your issue.</p></div>
+      <div class="pst"><div class="pn">02</div><h4>Pick a Slot</h4><p>Same-day and next-day slots available.</p></div>
+      <div class="pst"><div class="pn">03</div><h4>Tech Arrives</h4><p>A verified technician comes fully equipped.</p></div>
+      <div class="pst"><div class="pn">04</div><h4>Problem Solved</h4><p>Fixed and tested. Pay when satisfied.</p></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- PRICING -->
+<div id="pp" class="page">
+  <section class="phero og"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Transparent Pricing</div>
+    <h1 class="display">Clear Rates.<br><span class="grad">No Surprises.</span></h1>
+    <p class="body">All prices in Indian Rupees (&#8377;). Free diagnosis with every visit. No fix, no fee guarantee.</p>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Per-Service Rates</div>
+    <h2 class="h2" style="margin-bottom:32px">Pay Only For What You Need</h2>
+    <div class="rtable">
+      <div class="rth"><span>Service</span><span>Starting Price</span><span>Est. Duration</span></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128424;&#65039;</span>Printer Repair &amp; Setup</div><div><span class="rfr">from </span><span class="rprice">&#8377;249</span></div><div class="rtm">30&ndash;60 min</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128187;</span>OS Installation / Format</div><div><span class="rfr">from </span><span class="rprice">&#8377;500</span></div><div class="rtm">1&ndash;2 hrs</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#129440;</span>Virus / Malware Removal</div><div><span class="rfr">from </span><span class="rprice">&#8377;500</span></div><div class="rtm">1&ndash;2 hrs</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128246;</span>Wi-Fi / Router Setup</div><div><span class="rfr">from </span><span class="rprice">&#8377;399</span></div><div class="rtm">45&ndash;90 min</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128267;</span>Battery Replacement</div><div><span class="rfr">from </span><span class="rprice">&#8377;2,000</span></div><div class="rtm">30&ndash;60 min</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#9729;&#65039;</span>Data Recovery</div><div><span class="rfr">from </span><span class="rprice">&#8377;1,500</span></div><div class="rtm">1&ndash;4 hrs</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128250;</span>Smart Home / TV Setup</div><div><span class="rfr">from </span><span class="rprice">&#8377;799</span></div><div class="rtm">1&ndash;2 hrs</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128421;&#65039;</span>New Device Setup</div><div><span class="rfr">from </span><span class="rprice">&#8377;599</span></div><div class="rtm">1&ndash;2 hrs</div></div>
+      <div class="rrow"><div class="rsvc"><span class="rsico">&#128274;</span>Cybersecurity Audit</div><div><span class="rfr">from </span><span class="rprice">&#8377;999</span></div><div class="rtm">1&ndash;3 hrs</div></div>
+    </div>
+    <div style="margin-top:64px">
+      <div class="chip"><span class="dot"></span>Service Plans</div>
+      <h2 class="h2" style="margin-bottom:8px">Choose a Plan &amp; Save More</h2>
+      <p class="body" style="margin-bottom:0">For regular home IT needs, our plans offer the best value.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard"><div class="pname">Basic Visit</div><div class="ppr"><sup>&#8377;</sup>499<sub>/visit</sub></div><div class="ptag">Perfect for a single quick fix</div><div class="pdiv"></div><ul class="pfeats"><li>1 device or issue</li><li>Up to 1-hour on-site service</li><li>Printer or PC repair</li><li>Free diagnosis included</li><li>Same-day booking available</li><li>Satisfaction guarantee</li></ul><button class="pbtn" onclick="gp('contact')">Book Now</button></div>
+      <div class="pcard pop"><div class="poptag">Most Popular</div><div class="pname">Pro Visit</div><div class="ppr"><sup>&#8377;</sup>999<sub>/visit</sub></div><div class="ptag">Full home IT check &amp; repair</div><div class="pdiv"></div><ul class="pfeats"><li>Up to 3 devices covered</li><li>Up to 3-hour on-site service</li><li>Network + Printer + PC</li><li>Priority same-day slot</li><li>30-day follow-up support</li><li>Free antivirus check</li></ul><button class="pbtn" onclick="gp('contact')">Book Now</button></div>
+      <div class="pcard"><div class="pname">Home AMC</div><div class="ppr"><sup>&#8377;</sup>499<sub>/month</sub></div><div class="ptag">Peace of mind all year round</div><div class="pdiv"></div><ul class="pfeats"><li>2 on-site visits per month</li><li>Unlimited phone &amp; remote support</li><li>All home devices covered</li><li>Priority 2-hour response</li><li>Free antivirus &amp; OS updates</li><li>Annual health checkup</li></ul><button class="pbtn" onclick="gp('contact')">Subscribe</button></div>
+    </div>
+    <div style="padding-top:64px;border-top:1px solid var(--border);margin-top:64px">
+      <div class="chip"><span class="dot"></span>FAQ</div>
+      <h2 class="h2" style="margin-bottom:32px">Common Questions</h2>
+      <div class="faqg">
+        <div class="faqi"><div class="faqq">Is diagnosis really free?</div><div class="faqa">Yes &mdash; every visit includes a free diagnosis. You get an exact quote before any repair work begins.</div></div>
+        <div class="faqi"><div class="faqq">What if the problem isn't fixed?</div><div class="faqa">Our no fix, no fee guarantee means you pay nothing if we can't resolve your issue.</div></div>
+        <div class="faqi"><div class="faqq">How quickly can a technician arrive?</div><div class="faqa">Same-day visits for bookings before 2 PM. Most urgent slots within 2&ndash;3 hours in Bhopal.</div></div>
+        <div class="faqi"><div class="faqq">Do you service all areas of Bhopal?</div><div class="faqa">Yes &mdash; Saket Nagar, Arera Colony, MP Nagar, Kolar Road, Habibganj and all surrounding areas.</div></div>
+        <div class="faqi"><div class="faqq">Are GST invoices provided?</div><div class="faqa">Absolutely. We are GST-registered and provide proper tax invoices for all services.</div></div>
+        <div class="faqi"><div class="faqq">What payment methods do you accept?</div><div class="faqa">Cash, UPI (PhonePe / GPay / Paytm), NEFT/IMPS, and all major debit/credit cards.</div></div>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ABOUT -->
+<div id="pa" class="page">
+  <section class="sec" style="padding-bottom:0"><div class="wrap">
+    <div class="alayout">
+      <div>
+        <div class="chip"><span class="dot"></span>Our Story</div>
+        <h1 class="display">Built in Bhopal.<br><span class="grad">For Bhopal.</span></h1>
+        <p class="body" style="margin-top:20px">KhaleOnline was founded with a simple belief: every home deserves reliable, affordable IT support &mdash; without carrying devices to a shop or waiting days for a callback. We started with a small team of passionate engineers in Bhopal and have grown to become the city's most trusted home IT partner.</p>
+        <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap">
+          <button class="btn bp" onclick="gp('contact')">Work With Us</button>
+          <button class="btn bo" onclick="gp('services')">Our Services</button>
+        </div>
+      </div>
+      <div class="avis">
+        <div class="asg">
+          <div class="asb"><div class="n">12K+</div><div class="l">Homes Served</div></div>
+          <div class="asb"><div class="n">8+</div><div class="l">Years Exp.</div></div>
+          <div class="asb"><div class="n">98%</div><div class="l">Satisfaction</div></div>
+          <div class="asb"><div class="n">15+</div><div class="l">Technicians</div></div>
+        </div>
+        <div class="aq">"We believe every Bhopal family deserves the same quality IT support that big companies get &mdash; at a price they can afford, delivered at their doorstep."<cite>&mdash; Founder, KhaleOnline</cite></div>
+      </div>
+    </div>
+  </div></section>
+  <section class="mssec"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Our Values</div>
+    <h2 class="h2">What Drives Us</h2>
+    <div class="mgg">
+      <div class="mgc"><div class="mgico">&#127919;</div><h3>Reliability First</h3><p>We show up on time, every time. Strict punctuality and quality standards on every job.</p></div>
+      <div class="mgc"><div class="mgico">&#128172;</div><h3>Honest Communication</h3><p>We explain everything in plain language. No jargon, no upselling &mdash; just honest advice.</p></div>
+      <div class="mgc"><div class="mgico">&#127807;</div><h3>Community Growth</h3><p>As a Bhopal-born business, we invest in local engineers and contribute to the city's tech ecosystem.</p></div>
+    </div>
+  </div></section>
+  <section class="sec" style="border-top:1px solid var(--border)"><div class="wrap">
+    <div class="chip"><span class="dot"></span>The Team</div>
+    <h2 class="h2">Expert Technicians, Local Faces</h2>
+    <div class="tmg">
+      <div class="tmc"><div class="tmav ac">AK</div><div class="tmn">Arjun Khale</div><div class="tmr">Founder &amp; Lead Engineer</div><div class="tme">10+ yrs experience</div></div>
+      <div class="tmc"><div class="tmav ao">PS</div><div class="tmn">Pankaj Singh</div><div class="tmr">Network Specialist</div><div class="tme">7 yrs experience</div></div>
+      <div class="tmc"><div class="tmav ap">NJ</div><div class="tmn">Neha Joshi</div><div class="tmr">Cybersecurity Expert</div><div class="tme">6 yrs experience</div></div>
+      <div class="tmc"><div class="tmav ag">RM</div><div class="tmn">Rohit Malviya</div><div class="tmr">Hardware Technician</div><div class="tme">5 yrs experience</div></div>
+    </div>
+  </div></section>
+  <section class="ts"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Testimonials</div>
+    <h2 class="h2">Trusted Across Bhopal</h2>
+    <div class="tg">
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"Outstanding professionalism. The technician explained every step clearly and the repair was perfect. Will use KhaleOnline for all my IT needs."</p><div class="ta"><div class="tav ac">SK</div><div><div class="tn">Sunita Kushwaha</div><div class="tlo">Kolar Road, Bhopal</div></div></div></div>
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"Quick, clean, and reasonably priced. My whole home network was set up and secured within 3 hours. Couldn't ask for more."</p><div class="ta"><div class="tav ao">VT</div><div><div class="tn">Vikas Tripathi</div><div class="tlo">Habibganj, Bhopal</div></div></div></div>
+      <div class="tc2"><div class="tst">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="tt">"Subscribed to Home AMC &mdash; best decision ever. Monthly checkups keep all my devices running and support is always one call away."</p><div class="ta"><div class="tav ap">DV</div><div><div class="tn">Deepa Verma</div><div class="tlo">MP Nagar, Bhopal</div></div></div></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- CONTACT -->
+<div id="pc" class="page">
+  <section class="phero gg"><div class="wrap">
+    <div class="chip"><span class="dot"></span>Get In Touch</div>
+    <h1 class="display">Let's Fix Your<br><span class="grad">Tech Problem</span></h1>
+    <p class="body">Book a home visit, ask a question, or get a quote. We respond within 30 minutes during business hours.</p>
+  </div></section>
+  <section style="padding-bottom:40px"><div class="wrap">
+    <div class="cbody">
+      <div class="cinfo">
+        <div class="icard"><div class="iico">&#128205;</div><div><div class="ilbl">Office Address</div><div class="ival">Panchawati Complex<br>Saket Nagar, Bhopal</div><div class="isub">Madhya Pradesh &mdash; 462024</div></div></div>
+        <div class="icard"><div class="iico">&#128222;</div><div><div class="ilbl">Phone / WhatsApp</div><div class="ival"><a href="tel:+918359019009" style="color:var(--text)">+91 83590 19009</a></div><div class="isub">Mon&ndash;Sat 9 AM &ndash; 8 PM &middot; Sun 10 AM &ndash; 6 PM</div></div></div>
+        <div class="icard"><div class="iico">&#9993;&#65039;</div><div><div class="ilbl">Email</div><div class="ival">support@khaleonline.in</div><div class="isub">Response within 2 business hours</div></div></div>
+        <div class="hcard">
+          <h4>&#128336; Service Hours</h4>
+          <div class="hlist">
+            <div class="hrow"><span class="hday">Monday &ndash; Friday</span><span class="htime">9:00 AM &ndash; 8:00 PM</span></div>
+            <div class="hrow"><span class="hday">Saturday</span><span class="htime">9:00 AM &ndash; 7:00 PM</span></div>
+            <div class="hrow"><span class="hday">Sunday</span><span class="htime">10:00 AM &ndash; 6:00 PM</span></div>
+            <div class="hrow"><span class="hday">Emergency</span><span class="htime" style="color:var(--orange)">24 / 7</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cfw">
+        <h3>Book a Home Visit</h3>
+        <p class="fsub">Fill in the details below &mdash; we'll confirm your slot within 30 minutes.</p>
+        <form onsubmit="hs(event)">
+          <div class="frow">
+            <div class="field"><label>Your Name</label><input type="text" placeholder="Ramesh Gupta" required></div>
+            <div class="field"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" required></div>
+          </div>
+          <div class="field"><label>Full Address</label><input type="text" placeholder="House No., Area, Bhopal" required></div>
+          <div class="frow">
+            <div class="field"><label>Service Needed</label><select required><option value="" disabled selected>Select a service</option><option>Printer Repair &amp; Setup</option><option>Computer / Laptop Repair</option><option>Wi-Fi / Network Setup</option><option>Virus &amp; Malware Removal</option><option>Data Backup &amp; Recovery</option><option>Smart Home / TV Setup</option><option>New Device Setup</option><option>Cybersecurity Audit</option><option>Home AMC Plan</option><option>Other / Not Sure</option></select></div>
+            <div class="field"><label>Preferred Date</label><input type="date" id="dfield" required></div>
+          </div>
+          <div class="field"><label>Describe Your Issue (optional)</label><textarea placeholder="e.g. Printer shows offline error, laptop very slow..."></textarea></div>
+          <button type="submit" class="sbtn">&#128197; Confirm Booking Request &#8594;</button>
+        </form>
+      </div>
+    </div>
+  </div></section>
+  <section class="mapsec"><div class="wrap">
+    <div class="mapcard">
+      <div class="maphead"><h4>&#128205; Panchawati Complex, Saket Nagar, Bhopal</h4><span class="mapaddr">MP &mdash; 462024</span></div>
+      <div class="mapembed">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.07!2d77.4249!3d23.2220!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c428f8fd68fbd%3A0x2155716086a76a08!2sSaket%20Nagar%2C%20Bhopal%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="wrap">
+  <div class="fg">
+    <div class="fbl">
+      <div class="logo" onclick="gp('home')"><span class="k">Khale</span>Online</div>
+      <p>Bhopal's trusted home IT service. Certified technicians, transparent pricing, same-day service &mdash; at your doorstep.</p>
+      <div class="fci">
+        <div class="fcr"><span class="ico">&#128205;</span><span>Panchawati Complex, Saket Nagar, Bhopal, MP 462024</span></div>
+        <div class="fcr"><span class="ico">&#128222;</span><a href="tel:+918359019009" style="color:var(--text3)">+91 83590 19009</a></div>
+      </div>
+    </div>
+    <div><div class="fct">Services</div><ul class="flinks"><li><a onclick="gp('services')">Printer Repair</a></li><li><a onclick="gp('services')">Computer Repair</a></li><li><a onclick="gp('services')">Wi-Fi Setup</a></li><li><a onclick="gp('services')">Virus Removal</a></li><li><a onclick="gp('services')">Data Recovery</a></li></ul></div>
+    <div><div class="fct">Company</div><ul class="flinks"><li><a onclick="gp('about')">About Us</a></li><li><a onclick="gp('about')">Our Team</a></li><li><a onclick="gp('pricing')">Pricing</a></li><li><a onclick="gp('contact')">Careers</a></li></ul></div>
+    <div><div class="fct">Support</div><ul class="flinks"><li><a onclick="gp('contact')">Book a Visit</a></li><li><a onclick="gp('contact')">Contact Us</a></li><li><a onclick="gp('pricing')">Plans &amp; FAQ</a></li><li><a onclick="gp('contact')">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="fb">
+    <span>&copy; 2026 KhaleOnline &middot; Saket Nagar, Bhopal &middot; GST Registered</span>
+    <div class="fbadges"><span class="fbdg">ISO CERTIFIED</span><span class="fbdg">NO FIX NO FEE</span><span class="fbdg">GST REG.</span></div>
+  </div>
+</div></footer>
+
+<div id="toast" style="position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--bg2);border:1px solid rgba(0,230,118,0.3);border-radius:16px;padding:16px 24px;display:none;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+  <span style="font-size:1.5rem">&#9989;</span>
+  <div><div style="font-weight:700;font-size:0.92rem">Booking Request Sent!</div><div style="font-size:0.78rem;color:var(--text3);margin-top:2px">We'll confirm your slot within 30 minutes.</div></div>
+</div>
+
+<script>
+const pages=['home','services','pricing','about','contact'];
+const ids=['ph','ps','pp','pa','pc'];
+function gp(id){
+  const idx=pages.indexOf(id);
+  ids.forEach((eid,i)=>{
+    const el=document.getElementById(eid);
+    if(el) el.classList.toggle('active',i===idx);
+  });
+  document.querySelectorAll('.nav-menu a,.mob-nav a').forEach(a=>{
+    const oc=a.getAttribute('onclick')||'';
+    a.classList.toggle('active',oc.includes("'"+id+"'"));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('mn').classList.remove('open');
+}
+function tm(){document.getElementById('mn').classList.toggle('open')}
+function hs(e){
+  e.preventDefault();
+  const t=document.getElementById('toast');
+  t.style.display='flex';
+  e.target.reset();
+  setTimeout(()=>{t.style.display='none'},4500);
+}
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.boxShadow=window.scrollY>20?'0 4px 32px rgba(0,0,0,0.5)':'none';
+});
+document.getElementById('dfield').setAttribute('min',new Date().toISOString().split('T')[0]);
+document.querySelectorAll('.nav-menu a').forEach(a=>{if((a.getAttribute('onclick')||'').includes("'home'"))a.classList.add('active')});
+</script>
+</body>
+</html>
