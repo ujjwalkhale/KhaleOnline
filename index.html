@@ -197,7 +197,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:70px;display:flex;ali
 .poptag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);padding:4px 16px;border-radius:100px;white-space:nowrap}
 .pname{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
 .ppr{font-size:3rem;font-weight:900;letter-spacing:-0.05em;margin-bottom:4px;line-height:1}
-.ppr sup{font-size:1.4rem;vertical-align:top;margin-top:8px;font-weight:700}
+.ppr sup{font-size:1.4rem;vertical-align:top;margin-top:8px;font-weight:700} 
 .ppr sub{font-size:1rem;font-weight:400;color:var(--text3)}
 .pcard.pop .ppr{color:var(--cyan)}
 .ptag{font-size:0.85rem;color:var(--text3);margin-bottom:24px}
@@ -770,7 +770,7 @@ function hs(e){
   const phone=e.target.querySelectorAll('input')[1].value;
   const service=e.target.querySelector('select').value||'IT Service';
   const msg=encodeURIComponent('Hi KhaleOnline! I want to book a home visit.%0AName: '+name+'%0APhone: '+phone+'%0AService: '+service);
-  window.open('https://wa.me/8359019009?text='+msg,'_blank');
+  window.open('https://wa.me/+918359019009?text='+msg,'_blank');
   const t=document.getElementById('toast');
   t.style.display='flex';
   e.target.reset();
